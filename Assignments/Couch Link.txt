@@ -1,0 +1,37 @@
+curl -d @MuseRelatedArtist.json -H "Content-type: application/json" -X POST http://127.0.0.1:5984/_utils/#database/music_artist/_bulk_docs -u user:pass
+
+
+curl -H "Content-Type: application/json" -d "@MuseRelatedArtist.json" -X POST http://127.0.0.1:5984/_utils/music_artist/_bulk_docs -u user:pass
+
+
+
+
+curl -H "Content-Type: application/json" -d "@MuseRelatedArtist.json" -X POST http://user:pass@127.0.0.1:5984/music_artist/
+
+
+
+curl -H "Content-Type: application/json" -d "@MuseRelatedArtist.json" -X POST http://127.0.0.1:5984/music_artist/ -u user:pass
+
+
+
+
+curl -X POST -d "@MuseRelatedArtist.json" -H "Content-Type: application/json" http://$user:$pass:$localhost:5984/music_artist/all_docs
+
+curl -X POST -d "@MuseRelatedArtist.json" -H "Content-Type: application/json" http://$user:$pass:$localhost:5984/music_artist/all_docs
+
+curl -H "Content-Type: application/json" -d "@MuseRelatedArtist.json" -X POST http://user:pass@127.0.0.1:5984/music_artist/
+
+
+http://127.0.0.1:5984/_utils/#database/music_artist/_all_docs
+
+
+curl http://127.0.0.1:5984/music_artist/_design/MusicArtistInfo/_view/ArtistByAlbum?group=true -u user:pass
+
+curl http://127.0.0.1:5984/music/_design/Music2013InfoFans/_view/ArtistByAlbumFans?group=true -u user:pass
+
+
+curl -d @MuseRelatedArtist.json -H "Content-type: application/json" -X POST http://127.0.0.1:5984/music_artist/_bulk_docs -u user:pass
+
+
+
+

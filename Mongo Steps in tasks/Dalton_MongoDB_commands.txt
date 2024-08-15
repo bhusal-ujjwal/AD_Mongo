@@ -1,0 +1,43 @@
+Create Products database
+-- show dbs
+-- use products
+
+Import data from the github link
+-- Save the file to my local downloads folder
+-- mongoimport D:\Downloads\products.json -d products -c Products_Owoh --jsonArray
+
+Add 3 new products at once
+--
+db.Products_Owoh.insertMany([
+{Id: 26, Name: "NewProduct1",ReleaseDate: "2022-07-13",OriginalPrice: 50,Discount: 5,PictureUrl: "https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/26.jpg"},
+{Id: 27, Name: "NewProduct2",ReleaseDate: "2022-07-13",OriginalPrice: 60,Discount: 10,PictureUrl: "https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/27.jpg"},
+{Id: 28, Name: "NewProduct3",ReleaseDate: "2022-07-13",OriginalPrice: 70,Discount: 20,PictureUrl: "https://raw.githubusercontent.com/wedeploy-examples/supermarket-web-example/master/ui/assets/images/28.jpg"}
+])
+
+Delete 2 items at once
+-- db.Products_Owoh.deleteMany({"ReleaseDate": "2022-07-05"})
+
+Define an index over the ReleaseDate field
+-- db.Products_Owoh.createIndex( {"ReleaseDate" : 1 },{ name: "ReleaseDateIndex"} )
+
+Find All products released between July 1st and 9th, ordered by release date in descending order
+-- db.Products_Owoh.find({ReleaseDate:{$gt:'2022-07-01',$lt: '2022-07-09'}},{ Id: 1, Name: 1,ReleaseDate: 1, OriginalPrice:1, Discount:1,PictureUrl:1}).sort({"ReleaseDate":-1})
+
+Find all products without any discount (that is, discount = 0) order by price
+-- db.Products_Owoh.find({Discount:{$in:[0]}}).sort({"OriginalPrice":1})
+
+Paginate both search results (page size: 5). Return page 2 of results only
+First search result with product limit to 5 in a page and skip the first five products
+-- db.Products_Owoh.find( { ReleaseDate:{$gt:'2022-07-01', $lt: '2022-07-09'}}, { Id: 1, Name: 1, ReleaseDate: 1, OriginalPrice: 1, Discount: 1, PictureUrl: 1 }).sort({ "ReleaseDate": -1 }).limit(5).skip(5)
+
+Second search result with the product limit to 5 in a page and skip first five products
+-- db.Products_Owoh.find( { Discount: { $in: [ 0 ] } }).sort({ "OriginalPrice": 1 }).limit(5).skip(5)
+
+Use aggregation pipeline, find all products without discount and group them by date; the results must display the group id (date) and a stats field containing the minimum, maximum, and average price of items inside each group.
+-- db.Products_Owoh.aggregate([{$match:{Discount:{$in:[0]}}},{$group:{ _id : "$ReleaseDate",  MinimumPrice: { $min: "$OriginalPrice" }, MaximumPrice: { $max: "$OriginalPrice" }, AveragePrice: { $avg: "$OriginalPrice" } }},{ $project: {"ID": 1,"MinimumPrice": 1,"MaximumPrice": 1,"AveragePrice": 1}}])
+
+Export the final state of the database
+-- mongoexport -d products -c Products_Owoh --jsonArray --out D:\Downloads\productsNew.json
+
+Create Search Index
+-- db.Products_Bhusal.createIndex({ "Name": "text" });

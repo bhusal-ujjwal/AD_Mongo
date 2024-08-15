@@ -1,0 +1,127 @@
+> ping
+PONG
+> zadd hackers 1940 "Alanm Kayy:
+(integer) 1
+> type hackers
+"zset"
+> zadd hackers 1950 "Ujjwal Bhusal"
+(integer) 1
+> zadd hackers 1960 "Hello World"
+(integer) 1
+> zadd hackers 1949 "Jun Tara"
+(integer) 1
+> zadd hackers 1953 "Muna Madan"
+(integer) 1
+> zadd hackers 1963 "Doshi Chasma"
+(integer) 1
+> zadd hackers 1965 "Li Qiye"
+(integer) 1
+> zadd hackers 1965 "Li Qiye 2"
+(integer) 1
+> zrange hackers 0 -1
+1) "Alanm Kayy"
+2) "Jun Tara"
+3) "Ujjwal Bhusal"
+4) "Muna Madan"
+5) "Hello World"
+6) "Doshi Chasma"
+7) "Li Qiye"
+8) "Li Qiye 2"
+> zrange hackers 0 -1 withscores
+1) "Alanm Kayy"
+2) 1940.0
+3) "Jun Tara"
+4) 1949.0
+5) "Ujjwal Bhusal"
+6) 1950.0
+7) "Muna Madan"
+8) 1953.0
+9) "Hello World"
+10) 1960.0
+11) "Doshi Chasma"
+12) 1963.0
+13) "Li Qiye"
+14) 1965.0
+15) "Li Qiye 2"
+16) 1965.0
+> zrevrange hackers 0 -1 withscores
+1) "Li Qiye 2"
+2) 1965.0
+3) "Li Qiye"
+4) 1965.0
+5) "Doshi Chasma"
+6) 1963.0
+7) "Hello World"
+8) 1960.0
+9) "Muna Madan"
+10) 1953.0
+11) "Ujjwal Bhusal"
+12) 1950.0
+13) "Jun Tara"
+14) 1949.0
+15) "Alanm Kayy"
+16) 1940.0
+> zrangebyscore hackers -inf 1950
+1) "Alanm Kayy"
+2) "Jun Tara"
+3) "Ujjwal Bhusal"
+> zrangebyscore hackers -inf 1945
+1) "Alanm Kayy"
+> zrangebyscore hackers -inf 1965
+1) "Alanm Kayy"
+2) "Jun Tara"
+3) "Ujjwal Bhusal"
+4) "Muna Madan"
+5) "Hello World"
+6) "Doshi Chasma"
+7) "Li Qiye"
+8) "Li Qiye 2"
+> zrangebyscore hackers 1950 1960
+1) "Ujjwal Bhusal"
+2) "Muna Madan"
+3) "Hello World"
+> zremrangebyscore hackers 1950 1960
+3
+> zrange hackers 0 -1
+1) "Alanm Kayy"
+2) "Jun Tara"
+3) "Doshi Chasma"
+4) "Li Qiye"
+5) "Li Qiye 2"
+> zrank hackers "Li Qiye"
+3
+> zrevrank hackers "Li Qiye"
+1
+> zrevrank hackers "Dark Crow"
+(nil)
+> ZADD hackersv2 0 "Alan Kay" 0 "Sophie Wilson" 0 "Richard Stallman" 0 "Anita Borg" 0 "Yukihiro Matsumoto" 0 "Hedy Lamarr" 0 "Claude Shannon" 0 "Linus Torvalds" 0 "Alan Turing"
+(integer) 9
+> zrange hackersv2 0 -1
+1) "Alan Kay"
+2) "Alan Turing"
+3) "Anita Borg"
+4) "Claude Shannon"
+5) "Hedy Lamarr"
+6) "Linus Torvalds"
+7) "Richard Stallman"
+8) "Sophie Wilson"
+9) "Yukihiro Matsumoto"
+> zrange hackersv2 0 -1 withscores
+1) "Alan Kay"
+2) 0.0
+3) "Alan Turing"
+4) 0.0
+5) "Anita Borg"
+6) 0.0
+7) "Claude Shannon"
+8) 0.0
+9) "Hedy Lamarr"
+10) 0.0
+11) "Linus Torvalds"
+12) 0.0
+13) "Richard Stallman"
+14) 0.0
+15) "Sophie Wilson"
+16) 0.0
+17) "Yukihiro Matsumoto"
+18) 0.0

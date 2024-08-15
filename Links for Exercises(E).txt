@@ -1,0 +1,9 @@
+For Slide 1
+https://restdb.io/
+https://restdb.io/docs/relations-lookup#restdb
+https://dzone.com/articles/object-relations-in-a-nosql-database
+
+For Slide 2
+https://www.profit4cloud.nl/blog/introduction-to-graph-databases-using-neo4j-part-1/
+https://docs.cambridgesemantics.com/anzograph/v2.3/userdoc/cypher.htm
+https://guides.neo4j.com/sandbox/movies/index.html

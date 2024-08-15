@@ -1,0 +1,382 @@
+Microsoft Windows [Version 10.0.22621.819]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\ujjwa>mongosh
+Current Mongosh Log ID: 637bbbf365f2dd1bee51c4a2
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0
+Using MongoDB:          6.0.2
+Using Mongosh:          1.6.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2022-11-18T21:09:56.469+01:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> use company
+switched to db company
+company> db.getCollectionInfos({name: 'customers'})
+[
+  {
+    name: 'customers',
+    type: 'collection',
+    options: {},
+    info: {
+      readOnly: false,
+      uuid: new UUID("27e0ce05-edea-4323-88c5-6ef5f7a82d58")
+    },
+    idIndex: { v: 2, key: { _id: 1 }, name: '_id_' }
+  }
+]
+company> db.createCollection("Customers", {collation:{locale:"en",strength:1}})
+{ ok: 1 }
+company> db.getCollectionInfos({name: 'customers'})
+[
+  {
+    name: 'customers',
+    type: 'collection',
+    options: {},
+    info: {
+      readOnly: false,
+      uuid: new UUID("27e0ce05-edea-4323-88c5-6ef5f7a82d58")
+    },
+    idIndex: { v: 2, key: { _id: 1 }, name: '_id_' }
+  }
+]
+company> show collections
+customers
+Customers
+company> db.Customers.find(
+... { "Name.Last Name" : "Johnston" },
+... { "_id" : 0, "Name.First Name" : 1, "Name.Last Name" : 1 }
+... ).sort({ "Name.Last Name" : 1 });
+[
+  { Name: { 'First Name': 'Carole', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Audrey', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Shayne', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Wilson', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Ty', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Rosalinda', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Darin', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Chastity', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Alison', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Gerardo', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Jonathon', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Renae', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Gus', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Jasen', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Anissa', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Mayra', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Kasey', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Karrie', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Daryl', 'Last Name': 'Johnston' } },
+  { Name: { 'First Name': 'Misti', 'Last Name': 'Johnston' } }
+]
+Type "it" for more
+company> db.Customers.find(
+... { "Name.Last Name" : "Johnston" },
+... { "_id" : 0, "Name.First Name" : 1, "Name.Last Name" : 1 }
+... ).sort({ "Name.Last Name" : 1 }
+... ).explain("executionStats")
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'company.Customers',
+    indexFilterSet: false,
+    parsedQuery: { 'Name.Last Name': { '$eq': 'Johnston' } },
+    collation: {
+      locale: 'en',
+      caseLevel: false,
+      caseFirst: 'off',
+      strength: 1,
+      numericOrdering: false,
+      alternate: 'non-ignorable',
+      maxVariable: 'punct',
+      normalization: false,
+      backwards: false,
+      version: '57.1'
+    },
+    queryHash: 'FBA45373',
+    planCacheKey: 'FBA45373',
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    winningPlan: {
+      stage: 'SORT',
+      sortPattern: { 'Name.Last Name': 1 },
+      memLimit: 104857600,
+      type: 'simple',
+      inputStage: {
+        stage: 'PROJECTION_DEFAULT',
+        transformBy: { _id: 0, 'Name.First Name': 1, 'Name.Last Name': 1 },
+        inputStage: {
+          stage: 'COLLSCAN',
+          filter: { 'Name.Last Name': { '$eq': 'Johnston' } },
+          direction: 'forward'
+        }
+      }
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 68,
+    executionTimeMillis: 101,
+    totalKeysExamined: 0,
+    totalDocsExamined: 70000,
+    executionStages: {
+      stage: 'SORT',
+      nReturned: 68,
+      executionTimeMillisEstimate: 10,
+      works: 70071,
+      advanced: 68,
+      needTime: 70002,
+      needYield: 0,
+      saveState: 70,
+      restoreState: 70,
+      isEOF: 1,
+      sortPattern: { 'Name.Last Name': 1 },
+      memLimit: 104857600,
+      type: 'simple',
+      totalDataSizeSorted: 6459,
+      usedDisk: false,
+      spills: 0,
+      inputStage: {
+        stage: 'PROJECTION_DEFAULT',
+        nReturned: 68,
+        executionTimeMillisEstimate: 10,
+        works: 70002,
+        advanced: 68,
+        needTime: 69933,
+        needYield: 0,
+        saveState: 70,
+        restoreState: 70,
+        isEOF: 1,
+        transformBy: { _id: 0, 'Name.First Name': 1, 'Name.Last Name': 1 },
+        inputStage: {
+          stage: 'COLLSCAN',
+          filter: { 'Name.Last Name': { '$eq': 'Johnston' } },
+          nReturned: 68,
+          executionTimeMillisEstimate: 8,
+          works: 70002,
+          advanced: 68,
+          needTime: 69933,
+          needYield: 0,
+          saveState: 70,
+          restoreState: 70,
+          isEOF: 1,
+          direction: 'forward',
+          docsExamined: 70000
+        }
+      }
+    }
+  },
+  command: {
+    find: 'Customers',
+    filter: { 'Name.Last Name': 'Johnston' },
+    sort: { 'Name.Last Name': 1 },
+    projection: { _id: 0, 'Name.First Name': 1, 'Name.Last Name': 1 },
+    '$db': 'company'
+  },
+  serverInfo: {
+    host: 'Ujjwal',
+    port: 27017,
+    version: '6.0.2',
+    gitVersion: '94fb7dfc8b974f1f5343e7ea394d0d9deedba50e'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  ok: 1
+}
+company> db.Customers.createIndex( {"Name.Last Name" : 1 },{ name: "LastNameIndex"} )
+LastNameIndex
+company> db.Customers.find( { "Name.Last Name": "Johnston" }, { "_id": 0, "Name.First Name": 1, "Name.Last Name": 1 }). sort({ "Name.Last Name": 1 }). explain("executionStats")
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'company.Customers',
+    indexFilterSet: false,
+    parsedQuery: { 'Name.Last Name': { '$eq': 'Johnston' } },
+    collation: {
+      locale: 'en',
+      caseLevel: false,
+      caseFirst: 'off',
+      strength: 1,
+      numericOrdering: false,
+      alternate: 'non-ignorable',
+      maxVariable: 'punct',
+      normalization: false,
+      backwards: false,
+      version: '57.1'
+    },
+    queryHash: 'FBA45373',
+    planCacheKey: 'FA5D534F',
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    winningPlan: {
+      stage: 'PROJECTION_DEFAULT',
+      transformBy: { _id: 0, 'Name.First Name': 1, 'Name.Last Name': 1 },
+      inputStage: {
+        stage: 'FETCH',
+        inputStage: {
+          stage: 'IXSCAN',
+          keyPattern: { 'Name.Last Name': 1 },
+          indexName: 'LastNameIndex',
+          collation: {
+            locale: 'en',
+            caseLevel: false,
+            caseFirst: 'off',
+            strength: 1,
+            numericOrdering: false,
+            alternate: 'non-ignorable',
+            maxVariable: 'punct',
+            normalization: false,
+            backwards: false,
+            version: '57.1'
+          },
+          isMultiKey: false,
+          multiKeyPaths: { 'Name.Last Name': [] },
+          isUnique: false,
+          isSparse: false,
+          isPartial: false,
+          indexVersion: 2,
+          direction: 'forward',
+          indexBounds: {
+            'Name.Last Name': [
+              '[CollationKey(0x3b4537434d4f4543), CollationKey(0x3b4537434d4f4543)]'
+            ]
+          }
+        }
+      }
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 68,
+    executionTimeMillis: 27,
+    totalKeysExamined: 68,
+    totalDocsExamined: 68,
+    executionStages: {
+      stage: 'PROJECTION_DEFAULT',
+      nReturned: 68,
+      executionTimeMillisEstimate: 28,
+      works: 69,
+      advanced: 68,
+      needTime: 0,
+      needYield: 0,
+      saveState: 1,
+      restoreState: 1,
+      isEOF: 1,
+      transformBy: { _id: 0, 'Name.First Name': 1, 'Name.Last Name': 1 },
+      inputStage: {
+        stage: 'FETCH',
+        nReturned: 68,
+        executionTimeMillisEstimate: 28,
+        works: 69,
+        advanced: 68,
+        needTime: 0,
+        needYield: 0,
+        saveState: 1,
+        restoreState: 1,
+        isEOF: 1,
+        docsExamined: 68,
+        alreadyHasObj: 0,
+        inputStage: {
+          stage: 'IXSCAN',
+          nReturned: 68,
+          executionTimeMillisEstimate: 28,
+          works: 69,
+          advanced: 68,
+          needTime: 0,
+          needYield: 0,
+          saveState: 1,
+          restoreState: 1,
+          isEOF: 1,
+          keyPattern: { 'Name.Last Name': 1 },
+          indexName: 'LastNameIndex',
+          collation: {
+            locale: 'en',
+            caseLevel: false,
+            caseFirst: 'off',
+            strength: 1,
+            numericOrdering: false,
+            alternate: 'non-ignorable',
+            maxVariable: 'punct',
+            normalization: false,
+            backwards: false,
+            version: '57.1'
+          },
+          isMultiKey: false,
+          multiKeyPaths: { 'Name.Last Name': [] },
+          isUnique: false,
+          isSparse: false,
+          isPartial: false,
+          indexVersion: 2,
+          direction: 'forward',
+          indexBounds: {
+            'Name.Last Name': [
+              '[CollationKey(0x3b4537434d4f4543), CollationKey(0x3b4537434d4f4543)]'
+            ]
+          },
+          keysExamined: 68,
+          seeks: 1,
+          dupsTested: 0,
+          dupsDropped: 0
+        }
+      }
+    }
+  },
+  command: {
+    find: 'Customers',
+    filter: { 'Name.Last Name': 'Johnston' },
+    sort: { 'Name.Last Name': 1 },
+    projection: { _id: 0, 'Name.First Name': 1, 'Name.Last Name': 1 },
+    '$db': 'company'
+  },
+  serverInfo: {
+    host: 'Ujjwal',
+    port: 27017,
+    version: '6.0.2',
+    gitVersion: '94fb7dfc8b974f1f5343e7ea394d0d9deedba50e'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  ok: 1
+}
+company> db.Customers.dropIndex("LastNameIndex")
+{ nIndexesWas: 2, ok: 1 }
+company> db.Customers.createIndex( { "Name.Last Name" : 1,"Name.First Name" : 1 },
+... { name: "LastNameCompoundIndex"} )
+LastNameCompoundIndex
+company>

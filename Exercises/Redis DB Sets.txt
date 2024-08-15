@@ -1,0 +1,131 @@
+> ping
+PONG
+> sadd fruits apple banana orange
+(integer) 3
+> type fruits
+"set"
+> smembers fruits
+1) "apple"
+2) "orange"
+3) "banana"
+> smembers fruits
+1) "apple"
+2) "orange"
+3) "banana"
+> sadd fruits lemon
+(integer) 1
+> smembers fruits
+1) "apple"
+2) "lemon"
+3) "orange"
+4) "banana"
+> smembers fruits lemon
+(error) wrong number of arguments (given 2, expected 1)
+> sismembers fruits lemon
+(error) I'm sorry, I don't recognize that command. Please type HELP for one of these commands: DECR, DECRBY, DEL, EXISTS, EXPIRE, GET, GETSET, HDEL, HEXISTS, HGET, HGETALL, HINCRBY, HKEYS, HLEN, HMGET, HMSET, HSET, HVALS, INCR, INCRBY, KEYS, LINDEX, LLEN, LPOP, LPUSH, LRANGE, LREM, LSET, LTRIM, MGET, MSET, MSETNX, MULTI, PEXPIRE, RENAME, RENAMENX, RPOP, RPOPLPUSH, RPUSH, SADD, SCARD, SDIFF, SDIFFSTORE, SET, SETEX, SETNX, SINTER, SINTERSTORE, SISMEMBER, SMEMBERS, SMOVE, SORT, SPOP, SRANDMEMBER, SREM, SUNION, SUNIONSTORE, TTL, TYPE, ZADD, ZCARD, ZCOUNT, ZINCRBY, ZRANGE, ZRANGEBYSCORE, ZRANK, ZREM, ZREMRANGEBYSCORE, ZREVRANGE, ZSCORE
+> sismember fruits lemon
+(integer) 1
+> sismember fruits mango
+(integer) 0
+> sadd store apple mango melon lime banana
+(integer) 5
+> sinter fruits store
+1) "apple"
+2) "banana"
+> intersection among the sets between fruits and store
+(error) I'm sorry, I don't recognize that command. Please type HELP for one of these commands: DECR, DECRBY, DEL, EXISTS, EXPIRE, GET, GETSET, HDEL, HEXISTS, HGET, HGETALL, HINCRBY, HKEYS, HLEN, HMGET, HMSET, HSET, HVALS, INCR, INCRBY, KEYS, LINDEX, LLEN, LPOP, LPUSH, LRANGE, LREM, LSET, LTRIM, MGET, MSET, MSETNX, MULTI, PEXPIRE, RENAME, RENAMENX, RPOP, RPOPLPUSH, RPUSH, SADD, SCARD, SDIFF, SDIFFSTORE, SET, SETEX, SETNX, SINTER, SINTERSTORE, SISMEMBER, SMEMBERS, SMOVE, SORT, SPOP, SRANDMEMBER, SREM, SUNION, SUNIONSTORE, TTL, TYPE, ZADD, ZCARD, ZCOUNT, ZINCRBY, ZRANGE, ZRANGEBYSCORE, ZRANK, ZREM, ZREMRANGEBYSCORE, ZREVRANGE, ZSCORE
+> sinter intersection fruits store
+(empty list or set)
+> sinterstore intersection fruits store
+2
+> smembers intersection
+1) "apple"
+2) "banana"
+> sunion fruits store
+1) "lime"
+2) "mango"
+3) "apple"
+4) "lemon"
+5) "orange"
+6) "melon"
+7) "banana"
+> sunionstore union fruits store
+7
+> smembers union
+1) "lime"
+2) "mango"
+3) "apple"
+4) "lemon"
+5) "orange"
+6) "melon"
+7) "banana"
+> sunion fruits store
+1) "lime"
+2) "mango"
+3) "apple"
+4) "lemon"
+5) "orange"
+6) "melon"
+7) "banana"
+> sunion store fruits
+1) "mango"
+2) "lime"
+3) "apple"
+4) "orange"
+5) "lemon"
+6) "melon"
+7) "banana"
+> sdiff fruits store
+1) "orange"
+2) "lemon"
+> sdiff store fruits
+1) "lime"
+2) "mango"
+3) "melon"
+> sdiffstore differenceSF store fruits
+3
+> smembers differenceSF
+1) "lime"
+2) "mango"
+3) "melon"
+> srandmember fruits
+"lemon"
+> srandmember fruits
+"banana"
+> srandmember fruits
+"apple"
+> srandmember fruits 3
+1) "apple"
+2) "lemon"
+3) "banana"
+> srandmember fruits 2
+1) "lemon"
+2) "banana"
+> srandmember fruits -2
+1) "lemon"
+2) "orange"
+> srandmember fruits -2
+1) "banana"
+2) "apple"
+> srandmember fruits -3
+1) "lemon"
+2) "banana"
+3) "banana"
+> srandmember fruits 10
+1) "apple"
+2) "lemon"
+3) "orange"
+4) "banana"
+> srandmember fruits -10
+1) "apple"
+2) "banana"
+3) "orange"
+4) "orange"
+5) "orange"
+6) "orange"
+7) "apple"
+8) "banana"
+9) "lemon"
+10) "apple"
+> type fruits
+"set"

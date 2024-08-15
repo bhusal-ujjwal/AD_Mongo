@@ -1,0 +1,32 @@
+> ping
+PONG
+> hset user:1000 username Ujjwal birthyear 1998 city Arghakhanchi verified 1
+4
+> type user:1000
+"hash"
+> hget user:1000 birthyear
+"1998"
+> hget user:1000 username
+"Ujjwal"
+> hgetall user:1000
+1) "username"
+2) "Ujjwal"
+3) "birthyear"
+4) "1998"
+5) "city"
+6) "Arghakhanchi"
+7) "verified"
+8) "1"
+> hmget user:1000 username city
+1) "Ujjwal"
+2) "Arghakhanchi"
+> hmget user:1000 username city country
+1) "Ujjwal"
+2) "Arghakhanchi"
+3) (nil)
+> hget user:1000 country
+(nil)
+> hexists user:1000 city
+(integer) 1
+> hexists user:1000 country
+(integer) 0

@@ -1,0 +1,34 @@
+Microsoft Windows [Version 10.0.22621.819]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MongoDB\Tools\100\bin>mongoimport C:/data/customers.json -d company -c customers --jsonArray
+2022-11-21T18:53:34.485+0100    connected to: mongodb://localhost/
+2022-11-21T18:53:37.486+0100    [##########..............] company.customers    36.6MB/85.7MB (42.8%)
+2022-11-21T18:53:40.489+0100    [#################.......] company.customers    62.2MB/85.7MB (72.6%)
+2022-11-21T18:53:43.211+0100    [########################] company.customers    85.7MB/85.7MB (100.0%)
+2022-11-21T18:53:43.211+0100    70000 document(s) imported successfully. 0 document(s) failed to import.
+
+C:\Program Files\MongoDB\Tools\100\bin>mongoexport -d company -c customers --jsonArray --out C:/data/new_customers.json
+2022-11-21T18:54:44.920+0100    connected to: mongodb://localhost/
+2022-11-21T18:54:45.928+0100    [##......................]  company.customers  8000/70000  (11.4%)
+2022-11-21T18:54:46.923+0100    [#####...................]  company.customers  16000/70000  (22.9%)
+2022-11-21T18:54:47.934+0100    [########................]  company.customers  24000/70000  (34.3%)
+2022-11-21T18:54:48.931+0100    [##########..............]  company.customers  32000/70000  (45.7%)
+2022-11-21T18:54:49.928+0100    [#############...........]  company.customers  40000/70000  (57.1%)
+2022-11-21T18:54:50.926+0100    [################........]  company.customers  48000/70000  (68.6%)
+2022-11-21T18:54:51.930+0100    [################........]  company.customers  48000/70000  (68.6%)
+2022-11-21T18:54:52.926+0100    [###################.....]  company.customers  56000/70000  (80.0%)
+2022-11-21T18:54:53.937+0100    [###################.....]  company.customers  56000/70000  (80.0%)
+2022-11-21T18:54:54.933+0100    [#####################...]  company.customers  64000/70000  (91.4%)
+2022-11-21T18:54:55.230+0100    [########################]  company.customers  70000/70000  (100.0%)
+2022-11-21T18:54:55.231+0100    exported 70000 records
+
+C:\Program Files\MongoDB\Tools\100\bin>mongoimport C:/data/customers.json -d company -c Customers --jsonArray
+2022-11-21T19:28:41.227+0100    connected to: mongodb://localhost/
+2022-11-21T19:28:44.231+0100    [##########..............] company.Customers    35.7MB/85.7MB (41.7%)
+2022-11-21T19:28:47.229+0100    [################........] company.Customers    59.8MB/85.7MB (69.8%)
+2022-11-21T19:28:50.229+0100    [#######################.] company.Customers    83.1MB/85.7MB (97.0%)
+2022-11-21T19:28:50.597+0100    [########################] company.Customers    85.7MB/85.7MB (100.0%)
+2022-11-21T19:28:50.597+0100    70000 document(s) imported successfully. 0 document(s) failed to import.
+
+C:\Program Files\MongoDB\Tools\100\bin>

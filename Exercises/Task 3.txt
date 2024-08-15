@@ -1,0 +1,20 @@
+Solve each task using CouchDB:
+
+Create a database music_artist
+Import the data from MuseRelatedArtist.json file into the new database
+Create a view that groups the information by the nb_album field and counts the number of rows per album.
+Create another view that groups the information by the nb_album field and gets the total number of fans (nb_fan field) per album.
+Replicate the database in a new one: music_artist_replica. Demonstrate that it works by adding a new artist in the original database and displaying it in the replica.
+
+
+Upload a document (Word, PDF, PPT). For each task, show a screenshot/picture of each solved task.
+
+
+curl http://127.0.0.1:5984/music_artist/_design/MusicArtistInfo/_view/ArtistByAlbum?group=true -u user:pass
+
+curl http://127.0.0.1:5984/music_artist/_design/Music2013InfoFans/_view/ArtistByAlbumFans?group=true -u user:pass
+
+curl http://127.0.0.1:5984/music_artist/_design/MusicArtistInfoFans/_view/ArtistByAlbumFans?group=true -u user:pass
+
+
+Replicate the database in a new one: music_artist_replica. Demonstrate that it works by adding a new artist in the original database and displaying it in the replica.

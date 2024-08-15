@@ -1,0 +1,146 @@
+> ping
+PONG
+> set message hello
+OK
+> get message
+"hello"
+> get hello
+(nil)
+> GET message
+"hello"
+> GET Message
+(nil)
+> set Message "Good Morning"
+OK
+> set Message2 good evening
+(error) ERR Syntax error
+> more than two words should be in quotation
+(error) I'm sorry, I don't recognize that command. Please type HELP for one of these commands: DECR, DECRBY, DEL, EXISTS, EXPIRE, GET, GETSET, HDEL, HEXISTS, HGET, HGETALL, HINCRBY, HKEYS, HLEN, HMGET, HMSET, HSET, HVALS, INCR, INCRBY, KEYS, LINDEX, LLEN, LPOP, LPUSH, LRANGE, LREM, LSET, LTRIM, MGET, MSET, MSETNX, MULTI, PEXPIRE, RENAME, RENAMENX, RPOP, RPOPLPUSH, RPUSH, SADD, SCARD, SDIFF, SDIFFSTORE, SET, SETEX, SETNX, SINTER, SINTERSTORE, SISMEMBER, SMEMBERS, SMOVE, SORT, SPOP, SRANDMEMBER, SREM, SUNION, SUNIONSTORE, TTL, TYPE, ZADD, ZCARD, ZCOUNT, ZINCRBY, ZRANGE, ZRANGEBYSCORE, ZRANK, ZREM, ZREMRANGEBYSCORE, ZREVRANGE, ZSCORE
+> set message goodbye
+OK
+> get message
+"goodbye"
+> set message "Good Morning" nx
+(nil)
+> set message2 "Good Morning" nx
+OK
+> get message
+"goodbye"
+> set message "Good Morning" xx
+OK
+> get message
+"Good Morning"
+> set message3 "Good Morning" xx
+(nil)
+> del message
+(integer) 1
+> get message
+(nil)
+> del message
+(integer) 0
+> set mission "This message will auto destroy in one minute" ex 60
+OK
+> get mission
+"This message will auto destroy in one minute"
+> ttl mission
+(integer) 48
+> ttl mission
+(integer) 38
+> ttl mission
+(integer) 19
+> get mission
+"This message will auto destroy in one minute"
+> ttl mission
+(integer) 2
+> ttl mission
+(integer) -2
+> get mission
+(nil)
+> ttl mission
+(integer) -2
+> ttl mission2
+(integer) -2
+> pttl mission
+-2
+> set mission "This message will auto destroy in one minute" ex 60
+OK
+> pttl mission
+53360
+> ttl mission
+(integer) 45
+> pttl mission
+41040
+> ttl mission
+(integer) 37
+> expire messageTwo 30
+(integer) 0
+> expire message2 30
+(integer) 1
+> ttl message2
+(integer) 24
+> get message
+(nil)
+> set country "Czech Republic"
+OK
+> pexpire country 60000
+(integer) 1
+> pttl country
+53701
+> ttl country
+(integer) 50
+> type message
+"none"
+> set message "Hello"
+OK
+> type message
+"string"
+> set counter 100
+OK
+> type counter
+"string"
+> get counter
+"100"
+> incr counter
+(integer) 101
+> get counter
+"101"
+> type counter
+"string"
+> incr counter
+(integer) 102
+> get counter
+"102"
+> incrby counter 50
+(integer) 152
+> incrby counter -30
+(integer) 122
+> decrby counter 40
+(integer) 82
+> decrby counter -40
+(integer) 122
+> decrby counter
+(error) wrong number of arguments (given 1, expected 2)
+> decr counter
+(integer) 121
+> set salary 1000
+OK
+> incr salary 30.50
+(error) wrong number of arguments (given 2, expected 1)
+> incrby salary 30.50
+(error) ERR value is not an integer or out of range
+> incrbyfloat salary 30.50
+1030.5
+> incrby salary 10
+(error) ERR value is not an integer or out of range
+> type salary
+"string"
+> incrbyfloat salary -300.50
+730.0
+> incrbyfloat salary 6
+736.0
+> exists salary
+(integer) 1
+> exists price
+(integer) 0
+> get price
+(nil)

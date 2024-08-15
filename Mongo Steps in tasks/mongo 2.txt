@@ -1,0 +1,446 @@
+C:\Users\ujjwa>mongosh
+Current Mongosh Log ID: 637ba8e0d18a5bd7fc9870f8
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0
+Using MongoDB:          6.0.2
+Using Mongosh:          1.6.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2022-11-18T21:09:56.469+01:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> use store
+switched to db store
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> myCursor
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: 3,
+    status: 'A',
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  }
+]
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> while (myCursor.hasNext()) {
+...  printjson(myCursor.next());
+... }
+{
+  _id: ObjectId("6369347146859d6d3cdb6e81"),
+  item: 'postcard',
+  status: 'A',
+  quantity: 50,
+  size: { h: 10, w: 15.25, uom: 'cm' },
+  instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+}
+{
+  _id: ObjectId("6369347146859d6d3cdb6e82"),
+  item: 'journal',
+  status: 'A',
+  quantity: 5,
+  size: { h: 14, w: 21, uom: 'cm' },
+  instock: [ { warehouse: 'A', qty: 5 } ]
+}
+{
+  _id: ObjectId("6369347146859d6d3cdb6e84"),
+  item: 'notebook',
+  status: 'A',
+  quantity: 5,
+  size: { h: 8.5, w: 11, uom: 'in' },
+  instock: [ { warehouse: 'C', qty: 5 } ]
+}
+{
+  _id: 3,
+  status: 'A',
+  size: { h: 14, w: 21, uom: 'cm' },
+  instock: [ { warehouse: 'A', qty: 5 } ]
+}
+
+store> myCursor
+
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> myCursor.forEach(printjson);
+{
+  _id: ObjectId("6369347146859d6d3cdb6e81"),
+  item: 'postcard',
+  status: 'A',
+  quantity: 50,
+  size: { h: 10, w: 15.25, uom: 'cm' },
+  instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+}
+{
+  _id: ObjectId("6369347146859d6d3cdb6e82"),
+  item: 'journal',
+  status: 'A',
+  quantity: 5,
+  size: { h: 14, w: 21, uom: 'cm' },
+  instock: [ { warehouse: 'A', qty: 5 } ]
+}
+{
+  _id: ObjectId("6369347146859d6d3cdb6e84"),
+  item: 'notebook',
+  status: 'A',
+  quantity: 5,
+  size: { h: 8.5, w: 11, uom: 'in' },
+  instock: [ { warehouse: 'C', qty: 5 } ]
+}
+{
+  _id: 3,
+  status: 'A',
+  size: { h: 14, w: 21, uom: 'cm' },
+  instock: [ { warehouse: 'A', qty: 5 } ]
+}
+
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> var documentArray = myCursor.toArray();
+
+store> var myDocument = documentArray[1];
+
+store> myDocument
+{
+  _id: ObjectId("6369347146859d6d3cdb6e82"),
+  item: 'journal',
+  status: 'A',
+  quantity: 5,
+  size: { h: 14, w: 21, uom: 'cm' },
+  instock: [ { warehouse: 'A', qty: 5 } ]
+}
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> myCursor.forEach(function(doc){})
+
+store> myCursor.forEach(function(doc) {
+...  var updated_item = "New " + doc.item;
+...  db.store.updateOne(
+...  { _id: doc._id },
+...  { $set: { item: updated_item } }
+...  )
+... });
+MongoCursorExhaustedError: Cursor is exhausted
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> myCursor.forEach(function (doc) { var updated_item = "New " + doc.item; db.store.updateOne( { _id: doc._id }, { $set: { item: updated_item } }); });
+
+store> db.store.find( { status: "A" } );
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'New postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'New journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'New notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: 3,
+    status: 'A',
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ],
+    item: 'New undefined'
+  }
+]
+store> var myCursor = db.store.find( { status: "A" } );
+
+store> myCursor.map(function(doc) {
+...  return doc.item.split(' ').reverse();
+... });
+[
+  [ 'postcard', 'New' ],
+  [ 'journal', 'New' ],
+  [ 'notebook', 'New' ],
+  [ 'undefined', 'New' ]
+]
+store> show collections
+store
+store> db.createCollection("pizzas")
+{ ok: 1 }
+store> show collections
+pizzas
+store
+store> db.pizzas.insertMany([
+...  { _id: 0, type: "pepperoni", size: "small", price: 4 },
+...  { _id: 1, type: "cheese", size: "medium", price: 7 },
+...  { _id: 2, type: "vegan", size: "large", price: 8 }
+... ])
+{ acknowledged: true, insertedIds: { '0': 0, '1': 1, '2': 2 } }
+store> db.pizzas.find()
+[
+  { _id: 0, type: 'pepperoni', size: 'small', price: 4 },
+  { _id: 1, type: 'cheese', size: 'medium', price: 7 },
+  { _id: 2, type: 'vegan', size: 'large', price: 8 }
+]
+store> try {
+...  db.pizzas.bulkWrite( [
+...  { insertOne: { document: { _id: 3, type: "beef", size:
+... "medium", price: 6 } } },
+...  { insertOne: { document: { _id: 4, type: "sausage", size:
+... "large", price: 10 } } },
+...  { updateOne: {
+...  filter: { type: "cheese" },
+...  update: { $set: { price: 8 } }
+...  } },
+...  { deleteOne: { filter: { type: "pepperoni"} } },
+...  { replaceOne: {
+...  filter: { type: "vegan" },
+...  replacement: { type: "tofu", size: "small", price: 4 }
+...  } }
+...  ] )
+... } catch( error ) {
+...  print( error )
+... }
+{
+  acknowledged: true,
+  insertedCount: 2,
+  insertedIds: { '0': 3, '1': 4 },
+  matchedCount: 2,
+  modifiedCount: 2,
+  deletedCount: 1,
+  upsertedCount: 0,
+  upsertedIds: {}
+}
+store> db.pizzas.find()
+[
+  { _id: 1, type: 'cheese', size: 'medium', price: 8 },
+  { _id: 2, type: 'tofu', size: 'small', price: 4 },
+  { _id: 3, type: 'beef', size: 'medium', price: 6 },
+  { _id: 4, type: 'sausage', size: 'large', price: 10 }
+]
+store> try {
+...  db.pizzas.bulkWrite( [
+...  { insertOne: { document: { _id: 3, type: "beef", size:
+... "medium", price: 6 } } },
+...  { insertOne: { document: { _id: 3, type: "sausage", size:
+... "large", price: 10 } } },
+...  { updateOne: {
+...  filter: { type: "cheese" },
+...  update: { $set: { price: 8 } }
+...  } },
+...  { deleteOne: { filter: { type: "pepperoni"} } },
+...  { replaceOne: {
+...  filter: { type: "vegan" },
+...  replacement: { type: "tofu", size: "small", price: 4 }
+...  } }
+...  ],
+...  { ordered: false } )
+... } catch( error ) {
+...  print( error )
+... }
+MongoBulkWriteError: E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }
+    at UnorderedBulkOperation.handleWriteError (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:56113:16)
+    at UnorderedBulkOperation.handleWriteError (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:56294:18)
+    at resultHandler (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:55498:23)
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:52305:5
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:53841:9
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:75175:13
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:76300:9
+    at handleOperationResult (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:76393:14)
+    at Connection.onMessage (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:72974:5)
+    at MessageStream.<anonymous> (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:72777:56) {
+  code: 11000,
+  writeErrors: [
+    WriteError {
+      err: {
+        index: 0,
+        code: 11000,
+        errmsg: 'E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }',
+        errInfo: undefined,
+        op: { _id: 3, type: 'beef', size: 'medium', price: 6 }
+      }
+    },
+    WriteError {
+      err: {
+        index: 1,
+        code: 11000,
+        errmsg: 'E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }',
+        errInfo: undefined,
+        op: { _id: 3, type: 'sausage', size: 'large', price: 10 }
+      }
+    }
+  ],
+  result: BulkWriteResult {
+    result: {
+      ok: 1,
+      writeErrors: [
+        WriteError {
+          err: {
+            index: 0,
+            code: 11000,
+            errmsg: 'E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }',
+            errInfo: undefined,
+            op: { _id: 3, type: 'beef', size: 'medium', price: 6 }
+          }
+        },
+        WriteError {
+          err: {
+            index: 1,
+            code: 11000,
+            errmsg: 'E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }',
+            errInfo: undefined,
+            op: { _id: 3, type: 'sausage', size: 'large', price:
+ 10 }
+          }
+        }
+      ],
+      writeConcernErrors: [],
+      insertedIds: [ { index: 0, _id: 3 }, { index: 1, _id: 3 } ],
+      nInserted: 0,
+      nUpserted: 0,
+      nMatched: 1,
+      nModified: 0,
+      nRemoved: 0,
+      upserted: []
+    }
+  },
+  [Symbol(errorLabels)]: Set(0) {}
+}
+
+store> db.pizzas.drop()
+true
+store> show collections
+store
+store> db.createCollection("pizzas")
+{ ok: 1 }
+store> db.pizzas.insertMany([
+... { _id: 0, type: "pepperoni", size: "small", price: 4 },
+... { _id: 1, type: "cheese", size: "medium", price: 7 },
+... { _id: 2, type: "vegan", size: "large", price: 8 }
+... ])
+{ acknowledged: true, insertedIds: { '0': 0, '1': 1, '2': 2 } }
+store> db.pizzas.find()
+[
+  { _id: 0, type: 'pepperoni', size: 'small', price: 4 },
+  { _id: 1, type: 'cheese', size: 'medium', price: 7 },
+  { _id: 2, type: 'vegan', size: 'large', price: 8 }
+]
+store> try {
+...  db.pizzas.bulkWrite( [
+...  { insertOne: { document: { _id: 3, type: "beef", size:
+... "medium", price: 6 } } },
+...  { insertOne: { document: { _id: 3, type: "sausage", size:
+... "large", price: 10 } } },
+...  { updateOne: {
+...  filter: { type: "cheese" },
+...  update: { $set: { price: 8 } }
+...  } },
+...  { deleteOne: { filter: { type: "pepperoni"} } },
+...  { replaceOne: {
+...  filter: { type: "vegan" },
+...  replacement: { type: "tofu", size: "small", price: 4 }
+...  } }
+...  ],
+...  { ordered: false } )
+... } catch( error ) {
+...  print( error )
+... }
+MongoBulkWriteError: E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }
+    at UnorderedBulkOperation.handleWriteError (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:56113:16)
+    at UnorderedBulkOperation.handleWriteError (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:56294:18)
+    at resultHandler (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:55498:23)
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:52305:5
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:53841:9
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:75175:13
+    at C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:76300:9
+    at handleOperationResult (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:76393:14)
+    at Connection.onMessage (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:72974:5)
+    at MessageStream.<anonymous> (C:\Users\ujjwa\AppData\Local\Programs\mongosh\mongosh.exe:72777:56) {
+  code: 11000,
+  writeErrors: [
+    WriteError {
+      err: {
+        index: 1,
+        code: 11000,
+        errmsg: 'E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }',
+        errInfo: undefined,
+        op: { _id: 3, type: 'sausage', size: 'large', price: 10 }
+      }
+    }
+  ],
+  result: BulkWriteResult {
+    result: {
+      ok: 1,
+      writeErrors: [
+        WriteError {
+          err: {
+            index: 1,
+            code: 11000,
+            errmsg: 'E11000 duplicate key error collection: store.pizzas index: _id_ dup key: { _id: 3 }',
+            errInfo: undefined,
+            op: { _id: 3, type: 'sausage', size: 'large', price:
+ 10 }
+          }
+        }
+      ],
+      writeConcernErrors: [],
+      insertedIds: [ { index: 0, _id: 3 }, { index: 1, _id: 3 } ],
+      nInserted: 1,
+      nUpserted: 0,
+      nMatched: 2,
+      nModified: 2,
+      nRemoved: 1,
+      upserted: []
+    }
+  },
+  [Symbol(errorLabels)]: Set(0) {}
+}
+
+store>

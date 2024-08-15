@@ -1,0 +1,164 @@
+> ping
+PONG
+> rpush countryList "Czech Republic"
+(integer) 1
+> lpush countryList "Mexico"
+(integer) 2
+> rpush countryList "Nepal"
+(integer) 3
+> lpush countryList "Japan"
+(integer) 4
+> lpush countryList "China"
+(integer) 5
+> type countryList
+"list"
+> lrange countryList 0 -1
+1) "China"
+2) "Japan"
+3) "Mexico"
+4) "Czech Republic"
+5) "Nepal"
+> zero represents first reference and -1 represents last item
+(error) I'm sorry, I don't recognize that command. Please type HELP for one of these commands: DECR, DECRBY, DEL, EXISTS, EXPIRE, GET, GETSET, HDEL, HEXISTS, HGET, HGETALL, HINCRBY, HKEYS, HLEN, HMGET, HMSET, HSET, HVALS, INCR, INCRBY, KEYS, LINDEX, LLEN, LPOP, LPUSH, LRANGE, LREM, LSET, LTRIM, MGET, MSET, MSETNX, MULTI, PEXPIRE, RENAME, RENAMENX, RPOP, RPOPLPUSH, RPUSH, SADD, SCARD, SDIFF, SDIFFSTORE, SET, SETEX, SETNX, SINTER, SINTERSTORE, SISMEMBER, SMEMBERS, SMOVE, SORT, SPOP, SRANDMEMBER, SREM, SUNION, SUNIONSTORE, TTL, TYPE, ZADD, ZCARD, ZCOUNT, ZINCRBY, ZRANGE, ZRANGEBYSCORE, ZRANK, ZREM, ZREMRANGEBYSCORE, ZREVRANGE, ZSCORE
+> lrange countryList 0 2
+1) "China"
+2) "Japan"
+3) "Mexico"
+> lrange countryList -1 -3
+(empty list or set)
+> lrange countryList -1 0
+(empty list or set)
+> lrange countryList 3 3
+1) "Czech Republic"
+> lrange countryList 0 1000
+1) "China"
+2) "Japan"
+3) "Mexico"
+4) "Czech Republic"
+5) "Nepal"
+> lrange countryList 0 5
+1) "China"
+2) "Japan"
+3) "Mexico"
+4) "Czech Republic"
+5) "Nepal"
+> lrange countryList 0 -1
+1) "China"
+2) "Japan"
+3) "Mexico"
+4) "Czech Republic"
+5) "Nepal"
+> lpush countryList Spain "US" Egypt
+(integer) 8
+> lrange countryList 0 -1
+1) "Egypt"
+2) "US"
+3) "Spain"
+4) "China"
+5) "Japan"
+6) "Mexico"
+7) "Czech Republic"
+8) "Nepal"
+> rpush countryList Argentna Russia Australia
+(integer) 11
+> lrange countryList 0 -1
+1) "Egypt"
+2) "US"
+3) "Spain"
+4) "China"
+5) "Japan"
+6) "Mexico"
+7) "Czech Republic"
+8) "Nepal"
+9) "Argentna"
+10) "Russia"
+11) "Australia"
+> lpop countryList
+"Egypt"
+> rpop countryList
+"Australia"
+> lrange countryList 0 -1
+1) "US"
+2) "Spain"
+3) "China"
+4) "Japan"
+5) "Mexico"
+6) "Czech Republic"
+7) "Nepal"
+8) "Argentna"
+9) "Russia"
+> lpop someList
+(nil)
+> rpop someList
+(nil)
+> rpush someList 100
+(integer) 1
+> rpop someList
+"100"
+> lpop someList
+(nil)
+> get someList
+(nil)
+> lpush someList 200
+(integer) 1
+> get someList
+(error) WRONGTYPE Operation against a key holding the wrong kind of value
+> lrange someList 0 -1
+1) "200"
+>
+> llen countryList
+(integer) 9
+> lrange countryList 0 -1
+1) "US"
+2) "Spain"
+3) "China"
+4) "Japan"
+5) "Mexico"
+6) "Czech Republic"
+7) "Nepal"
+8) "Argentna"
+9) "Russia"
+> ltrim countryList 0 4
+OK
+> lrange countryList 0 -1
+1) "US"
+2) "Spain"
+3) "China"
+4) "Japan"
+5) "Mexico"
+> lpush countryList Czech
+(integer) 6
+> lrange countryList 0 -1
+1) "Czech"
+2) "US"
+3) "Spain"
+4) "China"
+5) "Japan"
+6) "Mexico"
+> ltrim countryList 0 4
+OK
+> lrange countryList 0 -1
+1) "Czech"
+2) "US"
+3) "Spain"
+4) "China"
+5) "Japan"
+> rpush countryList Poland
+(integer) 6
+> lrange countryList 0 -1
+1) "Czech"
+2) "US"
+3) "Spain"
+4) "China"
+5) "Japan"
+6) "Poland"
+> ltrim countryList 1 5
+OK
+> lrange countryList 0 -1
+1) "US"
+2) "Spain"
+3) "China"
+4) "Japan"
+5) "Poland"
+> Advanced commands LMOVE command atomically returns and removes the first/last element (head/tail depending on the wherefrom argument) of the list stored at source and pushes the element at the first/last element (head/tail depending on the whereto argument) of the list stored at destination. redis> RPUSH mylist "one" (integer) 1 redis> RPUSH mylist "two" (integer) 2 redis> RPUSH mylist "three" (integer) 3 redis> LMOVE mylist myotherlist RIGHT LEFT "three" redis> LMOVE mylist myotherlist LEFT RIGHT "one" redis> LRANGE mylist 0 -1 1) "two" redis> LRANGE myotherlist 0 -1 1) "three" 2) "one"
+(error) I'm sorry, I don't recognize that command. Please type HELP for one of these commands: DECR, DECRBY, DEL, EXISTS, EXPIRE, GET, GETSET, HDEL, HEXISTS, HGET, HGETALL, HINCRBY, HKEYS, HLEN, HMGET, HMSET, HSET, HVALS, INCR, INCRBY, KEYS, LINDEX, LLEN, LPOP, LPUSH, LRANGE, LREM, LSET, LTRIM, MGET, MSET, MSETNX, MULTI, PEXPIRE, RENAME, RENAMENX, RPOP, RPOPLPUSH, RPUSH, SADD, SCARD, SDIFF, SDIFFSTORE, SET, SETEX, SETNX, SINTER, SINTERSTORE, SISMEMBER, SMEMBERS, SMOVE, SORT, SPOP, SRANDMEMBER, SREM, SUNION, SUNIONSTORE, TTL, TYPE, ZADD, ZCARD, ZCOUNT, ZINCRBY, ZRANGE, ZRANGEBYSCORE, ZRANK, ZREM, ZREMRANGEBYSCORE, ZREVRANGE, ZSCORE

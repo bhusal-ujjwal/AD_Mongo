@@ -1,0 +1,1285 @@
+Microsoft Windows [Version 10.0.22621.755]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\ujjwa>mongosh
+Current Mongosh Log ID: 636932210d5087e42e798e6c
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0
+Using MongoDB:          6.0.2
+Using Mongosh:          1.6.0
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2022-10-30T20:01:44.188+01:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> db
+test
+test> use school
+switched to db school
+school> db.dropdatabase()
+TypeError: db.dropdatabase is not a function
+school> db.dropDatabase()
+{ ok: 1, dropped: 'school' }
+school> use store
+switched to db store
+store> db.createCollection("store")
+{ ok: 1 }
+store> show collections
+store
+store> db.store.insertMany([
+... { item: "postcard", status: "A", quantity: 50, size: { h: 10, w: 15.25, uom: "cm" }, instock: [ { warehouse: "B", qt
+qty: 15 }, { warehouse: "C", qty: 35 } ] },
+... { item: "journal", status: "A", quantity: 5, size: { h: 14, w: 21, uom: "cm" }, instock: [ { warehouse: "A", qty: 5 } ] },
+... { item: "paper", status: "D", quantity: 60, size: { h: 8.5, w: 11, uom: "in" }, instock: [ { warehouse: "A", qty: 60 } ] },
+... { item: "notebook", status: "A", quantity: 5, size: { h: 8.5, w: 11, uom: "in" }, instock: [ { warehouse: "C", qty: 5 } ] },
+... { item: "planner", status: "D", quantity: 40, size: { h: 22.85, w: 30, uom: "cm" }, instock: [ { warehouse: "A", qtyqty: 40 } ] }
+... ])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6369347146859d6d3cdb6e81"),
+    '1': ObjectId("6369347146859d6d3cdb6e82"),
+    '2': ObjectId("6369347146859d6d3cdb6e83"),
+    '3': ObjectId("6369347146859d6d3cdb6e84"),
+    '4': ObjectId("6369347146859d6d3cdb6e85")
+  }
+}
+store> db.store.find()
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  }
+]
+store> db.store.find({status:"A"})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find({status:"A"}, {item:1},{quantity:1})
+[
+  { _id: ObjectId("6369347146859d6d3cdb6e81"), item: 'postcard' },
+  { _id: ObjectId("6369347146859d6d3cdb6e82"), item: 'journal' },
+  { _id: ObjectId("6369347146859d6d3cdb6e84"), item: 'notebook' }
+]
+store> db.store.find({status:"A"},{item:1, quantity:1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5
+  }
+]
+store> db.store.find({status:"A"},{item:1, quantity:1, _id:0})
+[
+  { item: 'postcard', quantity: 50 },
+  { item: 'journal', quantity: 5 },
+  { item: 'notebook', quantity: 5 }
+]
+store> db.store.find({status:"A"},{status:0, instock:0})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' }
+  }
+]
+store> db.store.find({status:"A"},{status:0, instock:0, _id:0})
+[
+  {
+    item: 'postcard',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' }
+  },
+  { item: 'journal', quantity: 5, size: { h: 14, w: 21, uom: 'cm' } },
+  { item: 'notebook', quantity: 5, size: { h: 8.5, w: 11, uom: 'in' } }
+]
+store> db.store.find({status:"A"},{status:0, instock:0, "size":0})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5
+  }
+]
+store> db.store.find({status:"A"},{status:0, instock:0, "size:uom":0})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' }
+  }
+]
+store> db.store.find({status:"A"},{status:0, instock:0, "size.uom":0})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50,
+    size: { h: 10, w: 15.25 }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5,
+    size: { h: 14, w: 21 }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5,
+    size: { h: 8.5, w: 11 }
+  }
+]
+store> db.store.find({status:"A"},{status:0, instock:0, "size.h":0})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50,
+    size: { w: 15.25, uom: 'cm' }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5,
+    size: { w: 21, uom: 'cm' }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5,
+    size: { w: 11, uom: 'in' }
+  }
+]
+store> db.store.find({status:"A"},{status:0, instock:0, "size.h":1})
+MongoServerError: Cannot do inclusion on field size.h in exclusion projection
+store> db.store.find({status:"A"},{item:1, quantity:1, "size.h":1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50,
+    size: { h: 10 }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5,
+    size: { h: 14 }
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5,
+    size: { h: 8.5 }
+  }
+]
+store> db.stock.find()
+
+store> db.store.find()
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  }
+]
+store> db.store.find({status:"A"},{item:1, quantity:1, "size.h":1, "instock.qty":1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50,
+    size: { h: 10 },
+    instock: [ { qty: 15 }, { qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5,
+    size: { h: 14 },
+    instock: [ { qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5,
+    size: { h: 8.5 },
+    instock: [ { qty: 5 } ]
+  }
+]
+store> db.store.find({status:"A"},{status:0, "instock.qty":0})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B' }, { warehouse: 'C' } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A' } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C' } ]
+  }
+]
+store> db.store.find({status:"A"},{item:1, status:1, instock:{$slice:-1}})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    instock: [ { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty{$gt:10}}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:70)
+
+> 1 | db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty{$gt:10}}}})
+    |                                                                       ^
+  2 |
+
+store> db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty,{$gt:10}}}})
+Uncaught:
+SyntaxError: Unexpected token (1:71)
+
+> 1 | db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty,{$gt:10}}}})
+    |                                                                        ^
+  2 |
+
+store> db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty { $gt:10 }}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:71)
+
+> 1 | db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty { $gt:10 }}}})
+    |                                                                        ^
+  2 |
+
+store> db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty { $gt:10 }}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:71)
+
+> 1 | db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty { $gt:10 }}}})
+    |                                                                        ^
+  2 |
+
+store> db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty$gt:10 }}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:80)
+
+> 1 | db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty$gt:10 }}}})
+    |                                                                                 ^
+  2 |
+
+store> db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty{$gt:10 }}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:70)
+
+> 1 | db.store.find({status:"A"},{item:1, status:1, instock:{$elemMatch:{qty{$gt:10 }}}})
+    |                                                                       ^
+  2 |
+
+store> db.store.find({status:"A"},{instock:{$elemMatch:{qty{$gt:10 }}}})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:52)
+
+> 1 | db.store.find({status:"A"},{instock:{$elemMatch:{qty{$gt:10 }}}})
+    |                                                     ^
+  2 |
+
+store> db.store.find({status:"A"},{instock:{$elemMatch:{qty:{$gt:10 }}}})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    instock: [ { warehouse: 'B', qty: 15 } ]
+  },
+  { _id: ObjectId("6369347146859d6d3cdb6e82") },
+  { _id: ObjectId("6369347146859d6d3cdb6e84") }
+]
+store> db.store.find({status:"A"},{instock:{$elemMatch:{qty:{$lt:10 }}}})
+[
+  { _id: ObjectId("6369347146859d6d3cdb6e81") },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit(2)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit(0)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit()
+
+store> db.store.find( { status: "A" } ).limit(2)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit(2).skip(1)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).skip(1)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).skip(2)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit(2).skip(2)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit(2).skip(5)
+
+store> db.store.find( { status: "A" } ).limit(0).skip(1)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit(1).skip(1)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  }
+]
+store> db.store.find( { status: "A" } ).limit(1).skip(2)
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find().count()
+5
+store> db.store.find({status:"A"}).count()
+3
+store> db.store.find({status:"A"}).sort({item:1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  }
+]
+store> db.store.find().sort({quantity:1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+
+store> db.store.find().sort({quantity:-1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find().sort({status:1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  }
+]
+store> db.store.find().sort({"status":1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  }
+]
+store> db.store.find().sort({"status":-1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  }
+]
+store> db.store.find().sort({status:1, item:-1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  }
+]
+store> db.store.find().sort({status:1, item:1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  }
+]
+store> db.store.aggregate([]).sort({status:1, item:1})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  }
+]
+store> db.store.aggregate([$sort:{status:1, item:1}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:25)
+
+> 1 | db.store.aggregate([$sort:{status:1, item:1}])
+    |                          ^
+  2 |
+
+store> db.store.aggregate([{$sort:{status:1, item:1}}])
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  }
+]
+store> db.store.insertMany([
+... { _id: 1, item: null},
+... { _id: 2 },
+... { _id: 3, status: "A", size: {h: 14, w: 21, uom: "cm"},instock: [{warehouse: "A", qty: 5}]}
+... ])
+{ acknowledged: true, insertedIds: { '0': 1, '1': 2, '2': 3 } }
+store> db.store.find({item:null})
+[
+  { _id: 1, item: null },
+  { _id: 2 },
+  {
+    _id: 3,
+    status: 'A',
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  }
+]
+store> db.store.find({item:{$type:10}})
+[ { _id: 1, item: null } ]
+store> db.store.find({item:{$exists:false}})
+[
+  { _id: 2 },
+  {
+    _id: 3,
+    status: 'A',
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  }
+]
+store> db.store.find({item:{$exists:false}})
+[
+  { _id: 2 },
+  {
+    _id: 3,
+    status: 'A',
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  }
+]
+store>
+
+store> db.store.find({item:{$exists:true}})
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    quantity: 5,
+    size: { h: 14, w: 21, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    quantity: 5,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'C', qty: 5 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    quantity: 40,
+    size: { h: 22.85, w: 30, uom: 'cm' },
+    instock: [ { warehouse: 'A', qty: 40 } ]
+  },
+  { _id: 1, item: null }
+
+store> db.store.aggregate([{$match:{"size.h":{$gt:10}}},{$group:{ _id:"$status",total:{$sum:"$quantity"}}}])
+[ { _id: 'A', total: 5 }, { _id: 'D', total: 40 } ]
+
+store> db.store.aggregate([
+... {
+... $addFields: {
+... avgQty: { $avg: "$instock.qty" }
+... }
+... }, {
+... $project: {
+... "item": 1,
+... "status": 1,
+... "avgQty": 1
+... }
+... },
+... {
+... $limit: 5
+... }
+... ])
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    avgQty: 25
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    avgQty: 5
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    avgQty: 60
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    avgQty: 5
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    avgQty: 40
+  }
+]
+store> db.store.aggregate([
+... {
+... $sort: { "quantity": -1 }
+... },
+... {
+... $project: {
+... "item": 1,
+... "status": 1
+... }
+... },
+... {
+... $limit: 2
+... }
+... ])
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D'
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A'
+  }
+]
+store> db.store.aggregate([ { $sort: { "quantity": -1 } }, { $project: { "item": 0, "status": 0 } }, { $limit: 2 }])
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    quantity: 60,
+    size: { h: 8.5, w: 11, uom: 'in' },
+    instock: [ { warehouse: 'A', qty: 60 } ]
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    quantity: 50,
+    size: { h: 10, w: 15.25, uom: 'cm' },
+    instock: [ { warehouse: 'B', qty: 15 }, { warehouse: 'C', qty: 35 } ]
+  }
+]
+store> db.store.aggregate([ { $addFields: { avgQty: { $avg: "$instock.qty" } } }, { $project: { "item": 1, "status": 1, "avgQty": 1 } }, { $limit: 5 }])
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    avgQty: 25
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    avgQty: 5
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e83"),
+    item: 'paper',
+    status: 'D',
+    avgQty: 60
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e84"),
+    item: 'notebook',
+    status: 'A',
+    avgQty: 5
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e85"),
+    item: 'planner',
+    status: 'D',
+    avgQty: 40
+  }
+]
+store> db.store.aggregate([ { $addFields: { avgQty: { $avg: "$instock.qty" } } }, { $project: { "item": 1, "status": 1, "avgQty": 1 } }, { $limit: 2 }])
+[
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e81"),
+    item: 'postcard',
+    status: 'A',
+    avgQty: 25
+  },
+  {
+    _id: ObjectId("6369347146859d6d3cdb6e82"),
+    item: 'journal',
+    status: 'A',
+    avgQty: 5
+  }
+]
+store>
